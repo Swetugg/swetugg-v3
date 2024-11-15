@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Swetugg.Components\Swetugg.Components.csproj" />
     <ProjectReference Include="..\Swetugg.ServiceDefaults\Swetugg.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Swetugg.Services\Swetugg.Services.csproj" />
   </ItemGroup>
 
 </Project>

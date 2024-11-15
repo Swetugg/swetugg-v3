@@ -1,6 +1,6 @@
 using Swetugg.Web;
 using Swetugg.Web.Components;
-using Swetugg.Web.Services;
+using Swetugg.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +20,7 @@ builder.Services.AddHttpClient<WeatherApiClient>(client =>
         client.BaseAddress = new("https+http://apiservice");
     });
 
-builder.Services.AddHttpClient<EventManager>(client =>
+builder.Services.AddHttpClient<ConferenceManager>(client =>
 {
     // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
     // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
@@ -28,7 +28,7 @@ builder.Services.AddHttpClient<EventManager>(client =>
 });
 
 
-builder.Services.AddSingleton<EventManager>();
+builder.Services.AddSingleton<ConferenceManager>();
 
 var app = builder.Build();
 

@@ -1,3 +1,5 @@
+@using Swetugg.Components.Models
+
 <div>
     <h2>@Header</h2>
     <p>@Text</p>
@@ -6,7 +8,7 @@
         <div>
             @foreach (var button in Buttons)
             {
-                <a href="@button.Url" class="btn btn-primary">@button.Text</a>
+                <a href="@button.Url" class="btn btn-primary">@button.Label</a>
             }
         </div>
     }
@@ -16,18 +18,12 @@
 @code{
     [Parameter]
     [EditorRequired]
-    public string Header { get; set; }
+    public required string Header { get; set; }
 
     [Parameter]
     [EditorRequired]
-    public string Text { get; set; }
+    public required string Text { get; set; }
 
     [Parameter]
-    public IEnumerable<Button> Buttons { get; set; }
-
-    public class Button
-    {
-        public string Text { get; set; }
-        public string Url { get; set; }
-    }
+    public IEnumerable<Button>? Buttons { get; set; }
 }

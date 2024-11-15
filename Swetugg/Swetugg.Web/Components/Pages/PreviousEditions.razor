@@ -1,0 +1,16 @@
+﻿@page "/previous-editions"
+@using Swetugg.Components
+@using Swetugg.Components.Models
+@using Swetugg.Services
+@inject ConferenceManager ConferenceManager
+
+<TextArticle Header="Previous Edtions" Text="" Buttons="@previousEditionsLinks"></TextArticle>
+
+@code {
+    Button[]? previousEditionsLinks;
+    protected override async Task OnInitializedAsync()
+    {
+        var Conferences = await ConferenceManager.GetAllEditionssAsync();
+        previousEditionsLinks = Conferences.Where(e => !e.IsCurrent).Select(c => new Button($"{c.City} {c.Year}", $"/{c.City}/{c.Year}")).ToArray();
+    }
+}

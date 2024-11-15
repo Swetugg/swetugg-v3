@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swetugg.AppHost", "Swetugg.AppHost\Swetugg.AppHost.csproj", "{C621028A-BD56-40CA-93FB-FC2631605799}"
 EndProject
@@ -13,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swetugg.Tests", "Swetugg.Tests\Swetugg.Tests.csproj", "{03430411-AF32-4CCD-A5F5-CC21B6139879}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swetugg.Components", "Swetugg.Components\Swetugg.Components.csproj", "{B4BF15BB-C7F3-46A3-AD7D-F3EE5CE5852F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swetugg.Services", "Swetugg.Services\Swetugg.Services.csproj", "{C2DD36E8-63FC-422B-9366-27C1E10E7774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,8 +46,15 @@ Global
 		{B4BF15BB-C7F3-46A3-AD7D-F3EE5CE5852F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4BF15BB-C7F3-46A3-AD7D-F3EE5CE5852F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4BF15BB-C7F3-46A3-AD7D-F3EE5CE5852F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2DD36E8-63FC-422B-9366-27C1E10E7774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2DD36E8-63FC-422B-9366-27C1E10E7774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2DD36E8-63FC-422B-9366-27C1E10E7774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2DD36E8-63FC-422B-9366-27C1E10E7774}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {093D3D43-D101-4348-ABDB-E7D6E88373DD}
 	EndGlobalSection
 EndGlobal

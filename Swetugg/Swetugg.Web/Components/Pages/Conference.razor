@@ -1,29 +1,47 @@
 ﻿@page "/{city}/{year:int}"
 @using Swetugg.Components
+@using Swetugg.Components.Models
+@using Swetugg.Services.Models
+@using Swetugg.Services
+@inject ConferenceManager ConferenceManager
 
-// Set a global class around the page based on the city
-<div class="@City.ToLower()">
-    <ConferenceHeader ImageUrl="This will become the image URL" City="@City" Year="@Year"></ConferenceHeader>
-    <TextArticle Header="Some text article header" Text="@FakeText" Buttons="@Buttons"></TextArticle>
-
-    @switch (CfpStage)
-    {
-        case "CallForSpeakers":
-            <CallForSpeakers></CallForSpeakers>
-            break;
-        case "CfpClosed":
-            <CfpClosed></CfpClosed>
-            break;
-        default:
-            <Speakers></Speakers>
-            break;
-    }
-
-</div>
+@if(ConferenceEdition is null)
+{
+<div>Loading...</div>
+}
+else
+{
+    <div class="@City.ToLower()">
+        <ConferenceHeader ImageUrl="This will become the image URL" City="@City" Year="@Year"></ConferenceHeader>
+        <TextArticle Header="Some text article header" Text="@FakeText" Buttons="@Buttons"></TextArticle>
+        @switch (ConferenceEdition.CfpStage)
+        {
+            case CfpStage.Open:
+                <CallForSpeakers></CallForSpeakers>
+                break;
+            case CfpStage.Closed:
+                <CfpClosed></CfpClosed>
+                break;
+            case CfpStage.NotStarted:
+                <CfpNotStarted></CfpNotStarted>
+                break;
+            default:
+                <Speakers></Speakers>
+                break;
+        }
+    </div>
+}
 
 @code {
-        [Parameter] public string City { get; set; }
-        [Parameter] public int Year { get; set; }
+    [Parameter] public required string City { get; set; }
+    [Parameter] public required int Year { get; set; }
+
+    private ConferenceEdition? ConferenceEdition { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ConferenceEdition = await ConferenceManager.GetConferenceEdition(City, Year);
+    }
 
     // Load Conference data
 
@@ -32,9 +50,9 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna vitae mauris vulputate ullamcorper ut nec urna. Aenean volutpat ante vitae arcu ultricies, et bibendum felis facilisis. Vivamus imperdiet, tortor sed vulputate aliquam, dolor eros vestibulum elit, et porttitor orci leo eget ex. Integer ut justo vel dui dapibus condimentum. Maecenas laoreet semper lectus, a egestas turpis pretium at. Donec placerat tellus sit amet dui faucibus, ut dictum odio fringilla. Nulla facilisi. Nam accumsan orci sed ligula vehicula, nec fermentum arcu ullamcorper. Phasellus vehicula, felis non volutpat fringilla, ex mi volutpat nisi, nec congue velit augue sit amet lectus. Praesent euismod fermentum lacus, id convallis velit scelerisque ut.
         ";
 
-    private List<TextArticle.Button> Buttons = new List<TextArticle.Button>
+    private List<Button> Buttons = new List<Button>
     {
-        new TextArticle.Button { Text = "Button 1", Url = "https://www.google.com" },
-        new TextArticle.Button { Text = "Button 2", Url = "https://stacy-clouds.net" }
+        new Button("Button 1", "https://www.google.com"),
+        new Button("Button 2", "https://stacy-clouds.net")
     };
 }

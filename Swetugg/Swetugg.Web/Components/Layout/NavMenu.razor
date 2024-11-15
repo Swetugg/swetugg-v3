@@ -1,5 +1,6 @@
-﻿@using Swetugg.Web.Services;
-@inject EventManager EventManager
+﻿@using Swetugg.Services;
+@using Swetugg.Services.Models
+@inject ConferenceManager ConferenceManager
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -17,7 +18,7 @@
             </NavLink>
         </div>
 
-        @foreach (var e in Events)
+        @foreach (var e in ConferenceEditions)
         { 
             string url = $"{e.City}/{e.Year}";
 
@@ -32,9 +33,9 @@
 </div>
 
 @code {
-    private IEnumerable<Event> Events { get; set; }
+    private IEnumerable<ConferenceEdition> ConferenceEditions { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        Events = await EventManager.GetEventsAsync();
+        ConferenceEditions = await ConferenceManager.GetAllEditionssAsync();
     }
 }

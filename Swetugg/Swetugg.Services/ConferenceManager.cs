@@ -1,34 +1,35 @@
-﻿using System.Text.Json;
+﻿using Swetugg.Services.Models;
+using System.Text.Json;
 
-namespace Swetugg.Web.Services;
+namespace Swetugg.Services;
 
-public class EventManager
+public class ConferenceManager
 {
     private readonly HttpClient _httpClient;
-    public EventManager(HttpClient httpClient)
+    public ConferenceManager(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
-    public async Task<IEnumerable<Event>> GetEventsAsync()
+    public async Task<IEnumerable<ConferenceEdition>> GetAllEditionssAsync()
     {
         //var response = await _httpClient.GetAsync("events");
         //response.EnsureSuccessStatusCode();
         //var content = await response.Content.ReadAsStringAsync();
         //return JsonSerializer.Deserialize<IEnumerable<Event>>(content);
 
-        return Task.FromResult(new List<Event>
+        return await Task.FromResult(new List<ConferenceEdition>
         {
-            new Event(1, 2025, City.Stockholm, CfpStage.Closed, true),
-            new Event(2, 2025, City.Goteborg, CfpStage.SpeakersSelected)
-        }).Result;
+            new (1, 2025, ConferenceCity.Stockholm, CfpStage.Closed, true),
+            new (2, 2025, ConferenceCity.Goteborg, CfpStage.SpeakersSelected)
+        });
     }
-    public async Task<Event> GetEventAsync(Guid id)
+
+    public async Task<ConferenceEdition?> GetConferenceEdition(string city, int year)
     {
-        var response = await _httpClient.GetAsync($"events/{id}");
-        response.EnsureSuccessStatusCode();
-        var content = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<Event>(content);
+        var editions = await GetAllEditionssAsync();
+        return editions.FirstOrDefault(e => e.City.ToString().ToLower() == city.ToLower() && e.Year == year);
     }
+
     //public async Task<Event> CreateEventAsync(Event @event)
     //{
     //    var json = JsonSerializer.Serialize(@event);
@@ -50,20 +51,4 @@ public class EventManager
     //    var response = await _httpClient.PatchAsync($"events/{id}", new StringContent("", Encoding.UTF8, "application/json"));
     //    response.EnsureSuccessStatusCode();
     //}
-}
-
-public record Event(int Id, int Year, City City, CfpStage CfpStage, bool IsCurrent = false);
-
-public enum City
-{
-    Stockholm,
-    Goteborg
-}
-
-public enum CfpStage
-{
-    NotStarted,
-    Open,
-    Closed,
-    SpeakersSelected
 }

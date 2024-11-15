@@ -1,0 +1,40 @@
+﻿@using Swetugg.Web.Services;
+@inject EventManager EventManager
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Swetugg</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+        @foreach (var e in Events)
+        { 
+            string url = $"{e.City}/{e.Year}";
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="@url">
+                    <span class="bi bi-house-door-fill" aria-hidden="true"></span> @($"{e.City} {e.Year}")
+                </NavLink>
+            </div>
+
+        }
+    </nav>
+</div>
+
+@code {
+    private IEnumerable<Event> Events { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Events = await EventManager.GetEventsAsync();
+    }
+}

@@ -1,0 +1,15 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@using Swetugg.Web.Services;
+@inject EventManager EventManager
+@rendermode InteractiveServer
+
+@code {
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var events = await EventManager.GetEventsAsync();
+        var currentConf = events.FirstOrDefault(e => e.IsCurrent);
+        NavigationManager.NavigateTo($"{currentConf!.City}/{currentConf.Year}");
+    }
+}

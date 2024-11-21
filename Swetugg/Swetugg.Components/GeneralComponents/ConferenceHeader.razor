@@ -1,0 +1,19 @@
+<div>
+    <h1>@City - @Year</h1>
+    <p>@ImageUrl</p>
+</div>
+
+
+@code{
+    [Parameter]
+    [EditorRequired]
+    public required string ImageUrl { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public required string City { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public required int Year { get; set; }
+}

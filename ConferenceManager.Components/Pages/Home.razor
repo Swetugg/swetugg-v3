@@ -1,0 +1,17 @@
+﻿@page "/"
+@inject ConferenceService ConferenceService
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+@code {
+    private IEnumerable<ConferenceEdition>? Conferences;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Conferences = await ConferenceService.GetAllEditionssAsync();
+        var currentConference = Conferences.FirstOrDefault(c => c.IsCurrent);
+        if (currentConference != null)
+        {
+            NavigationManager.NavigateTo($"/{currentConference.City}/{currentConference.Year}");
+        }
+    }
+}

@@ -1,18 +1,20 @@
 ﻿@page "/{city}/{year:int}"
+@using Microsoft.JSInterop
 @inject ConferenceService ConferenceService
+@inject IJSRuntime JSRuntime
 
 @if(ConferenceEdition is null)
 {
-<div>Loading...</div>
+    <div>Loading...</div>
 }
 else
 {
     <div class="@City.ToLower()">
         <ConferenceHeader ImageUrl="This will become the image URL" City="@City" Year="@Year"></ConferenceHeader>
-        <TextArticle Header="Some text article header" Text="@FakeText" Buttons="@Buttons"></TextArticle>
+        <TextArticle Header="Some text article header" Text="@ConferenceEdition.HeaderInfo.text"></TextArticle>
         @switch (ConferenceEdition.CfpStage)
         {
-                //TODO: Create the controls - this is an example flow...
+            //TODO: Create the controls - this is an example flow...
             case CfpStage.Open:
                 <CallForSpeakers></CallForSpeakers>
                 break;
@@ -35,21 +37,21 @@ else
 
     private ConferenceEdition? ConferenceEdition { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        ConferenceEdition = await ConferenceService.GetConferenceEdition(City, Year);
+        ConferenceEdition = await ConferenceService.GetConferenceEditionAsync(City, Year);
+        //await ChangeColor(ConferenceEdition.MainColor);
     }
 
-    // Load Conference data
+    private async Task ChangeColor(string color) 
+    { 
+        await JSRuntime.InvokeVoidAsync("setGlobalNavColor", color); 
+    }
 
-        // Some fake lorum ipsum text
-    private string FakeText = @"
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna vitae mauris vulputate ullamcorper ut nec urna. Aenean volutpat ante vitae arcu ultricies, et bibendum felis facilisis. Vivamus imperdiet, tortor sed vulputate aliquam, dolor eros vestibulum elit, et porttitor orci leo eget ex. Integer ut justo vel dui dapibus condimentum. Maecenas laoreet semper lectus, a egestas turpis pretium at. Donec placerat tellus sit amet dui faucibus, ut dictum odio fringilla. Nulla facilisi. Nam accumsan orci sed ligula vehicula, nec fermentum arcu ullamcorper. Phasellus vehicula, felis non volutpat fringilla, ex mi volutpat nisi, nec congue velit augue sit amet lectus. Praesent euismod fermentum lacus, id convallis velit scelerisque ut.
-        ";
-
-    private List<Button> Buttons = new List<Button>
-    {
-        new Button("Button 1", "https://www.google.com"),
-        new Button("Button 2", "https://stacy-clouds.net")
-    };
+    // private void ChangeColor()
+    // { 
+    //     //Change the CSS variable value var newColor = "#ff5733"; 
+    //     //Example color var style = $"--global-nav-color: {newColor};"; 
+    //     var element = (IHtmlElement)Document.QuerySelector(":root"); element.Style.SetProperty("--global-nav-color", newColor); }
+    // }
 }

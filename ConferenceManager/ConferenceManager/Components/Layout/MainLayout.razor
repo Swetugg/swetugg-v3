@@ -1,7 +1,18 @@
-﻿@inherits LayoutComponentBase
+﻿@using ConferenceManager.Services.Models
+@using ConferenceManager.Services
+@inherits LayoutComponentBase
+@inject ConferenceService service
 
 <div class="page">
-    <div class="sidebar">
+    <div class="top-row ps-3 navbar navbar-dark navbar-top">
+        <div class="container-fluid">
+            <a class="navbar-left" href="">
+                <img src="/img/40_WhiteBG_GraySwetuggOrigamiButterfly.png" width="50" height="41"
+                     class="pull-left" />
+                Swetugg
+            </a>
+        </div>
+        
         <NavMenu />
     </div>
 
@@ -14,6 +25,7 @@
             @Body
         </article>
     </main>
+    <Footer />
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>

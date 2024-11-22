@@ -8,9 +8,19 @@
     <link rel="stylesheet" href="@Assets["lib/bootstrap/dist/css/bootstrap.min.css"]" />
     <link rel="stylesheet" href="@Assets["app.css"]" />
     <link rel="stylesheet" href="@Assets["ConferenceManager.styles.css"]" />
+    <link href="//fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <ImportMap />
     <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet />
+    <script>
+        // wwwroot/js/site.js
+        window.setGlobalNavColor = (color) => {
+            var root = document.documentElement;
+            root.style.setProperty("--global-nav-color", color);
+        };
+    </script>
 </head>
 
 <body>

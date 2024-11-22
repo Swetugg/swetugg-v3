@@ -9,12 +9,12 @@ public class ConferenceService
     {
         return await Task.FromResult(new List<ConferenceEdition>
         {
-            new (1, 2025, ConferenceCity.Stockholm, CfpStage.Closed, true),
-            new (2, 2025, ConferenceCity.Goteborg, CfpStage.SpeakersSelected)
+            new (1, 2025, ConferenceCity.Stockholm, CfpStage.Closed, "#A30046", new HeaderInfo("Blah di balh Stockholm", ""), true),
+            new (2, 2025, ConferenceCity.Goteborg, CfpStage.SpeakersSelected, "#008266", new HeaderInfo("Blah di balh Goteborg", ""))
         });
     }
 
-    public async Task<ConferenceEdition?> GetConferenceEdition(string city, int year)
+    public async Task<ConferenceEdition?> GetConferenceEditionAsync(string city, int year)
     {
         var editions = await GetAllEditionssAsync();
         return editions.FirstOrDefault(e => e.City.ToString().ToLower() == city.ToLower() && e.Year == year);

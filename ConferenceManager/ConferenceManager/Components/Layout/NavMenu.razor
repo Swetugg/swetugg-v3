@@ -1,26 +1,53 @@
-﻿<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+﻿@using ConferenceManager.Services
+@inject ConferenceService ConferenceManager
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+
+
+<div class="top-row ps-3 navbar navbar-dark navbar-top @colorScheme">
+    <div class="container-fluid">
+        <a class="navbar-left" href="">
+            <img src="/img/40_WhiteBG_GraySwetuggOrigamiButterfly.png" width="50" height="41"
+                 class="pull-left"/>
+            Swetugg
+        </a>
+    </div>
     <div class="navbar-right">
-        <nav class="nav flex-column">
-            <ul class="nav navbar-nav">
-                <li class="page-scroll">
-                    <a href="#sponsor" data-target="#sponsor">Sponsors</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#speakers" data-target="#speakers">Speakers</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#schedule" data-target="#schedule">Schedule</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="/previous-editions" data-target="#previouseditions">Previous Editions</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="/codeofconduct">Code of Conduct</a>
-                </li>
-            </ul>
-        </nav>
+        <ul class="nav navbar-nav">
+            @* <li class="page-scroll"> *@
+            @*     <a href="#sponsor" data-target="#sponsor">Sponsors</a> *@
+            @* </li> *@
+            @* <li class="page-scroll"> *@
+            @*     <a href="#speakers" data-target="#speakers">Speakers</a> *@
+            @* </li> *@
+            @* <li class="page-scroll"> *@
+            @*     <a href="#schedule" data-target="#schedule">Schedule</a> *@
+            @* </li> *@
+            @* <li class="page-scroll"> *@
+            @*     <a href="/codeofconduct">Code of Conduct</a> *@
+            @* </li> *@
+        </ul>
     </div>
 </div>
 
+<input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
+
+<div class="nav-scrollable @colorScheme" onclick="document.querySelector('.navbar-toggler').click() ">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        
+    </nav>
+</div>
+
+
+@code {
+    //todo: put here previous edition
+    //todo: meni is gona be same like monitor and mobile versiona -> DNT repeat yourself!
+//todo: this need to fetch from database which conference is available, and move this to MainLayout/Apprazor
+private string colorScheme = "goteborg";
+
+
+}

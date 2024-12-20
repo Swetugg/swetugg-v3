@@ -58,3 +58,11 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+.goteborg {
+    --global-nav-color: #008266; /* Green for Goteborg */
+}
+
+.stockholm {
+    --global-nav-color: #A30046;; /* Red for Stockholm */
+}

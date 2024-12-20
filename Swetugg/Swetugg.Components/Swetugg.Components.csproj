@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Swetugg.ServiceDefaults\Swetugg.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Swetugg.Services\Swetugg.Services.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />

@@ -26,8 +26,16 @@ public class ConferenceManager
 
     public async Task<ConferenceEdition?> GetConferenceEdition(string city, int year)
     {
-        var editions = await GetAllEditionssAsync();
-        return editions.FirstOrDefault(e => e.City.ToString().ToLower() == city.ToLower() && e.Year == year);
+        try
+        {
+            var editions = await GetAllEditionssAsync();
+            return editions.FirstOrDefault(e => e.City.ToString().ToLower() == city.ToLower() && e.Year == year);
+        }
+        catch (Exception ex)
+        {
+            Console.Write("");
+            throw;
+        }
     }
 
     //public async Task<Event> CreateEventAsync(Event @event)

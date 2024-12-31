@@ -9,7 +9,7 @@ public class ConferenceService
     {
         return await Task.FromResult(new List<ConferenceEdition>
         {
-            new (1, 2025, ConferenceCity.Stockholm, CfpStage.Closed, "#A30046", new HeaderInfo("Blah di balh Stockholm", ""), true),
+            new (1, 2024, ConferenceCity.Stockholm, CfpStage.Closed, "#A30046", new HeaderInfo("Blah di balh Stockholm", ""), true),
             new (2, 2025, ConferenceCity.Goteborg, CfpStage.SpeakersSelected, "#008266", new HeaderInfo("Blah di balh Goteborg", ""))
         });
     }

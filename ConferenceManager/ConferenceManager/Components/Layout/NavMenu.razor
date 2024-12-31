@@ -1,53 +1,63 @@
 ﻿@using ConferenceManager.Services
 @inject ConferenceService ConferenceManager
-
-
+@inject NavigationManager NavigationManager
 
 <div class="top-row ps-3 navbar navbar-dark navbar-top @colorScheme">
     <div class="container-fluid">
-        <a class="navbar-left" href="">
-            <img src="/img/40_WhiteBG_GraySwetuggOrigamiButterfly.png" width="50" height="41"
-                 class="pull-left"/>
+        <a class="navbar-left" href="/">
+            <img src="/img/40_WhiteBG_GraySwetuggOrigamiButterfly.png" width="50" height="41" class="pull-left"/>
             Swetugg
         </a>
     </div>
     <div class="navbar-right">
         <ul class="nav navbar-nav">
-            @* <li class="page-scroll"> *@
-            @*     <a href="#sponsor" data-target="#sponsor">Sponsors</a> *@
-            @* </li> *@
-            @* <li class="page-scroll"> *@
-            @*     <a href="#speakers" data-target="#speakers">Speakers</a> *@
-            @* </li> *@
-            @* <li class="page-scroll"> *@
-            @*     <a href="#schedule" data-target="#schedule">Schedule</a> *@
-            @* </li> *@
-            @* <li class="page-scroll"> *@
-            @*     <a href="/codeofconduct">Code of Conduct</a> *@
-            @* </li> *@
+            @foreach (var item in NavigationItems)
+            {
+                <li class="page-scroll">
+                    <a href="@item.Href" data-target="@item.Target">@item.Text</a>
+                </li>
+            }
         </ul>
     </div>
 </div>
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
 
-<div class="nav-scrollable @colorScheme" onclick="document.querySelector('.navbar-toggler').click() ">
+<div class="nav-scrollable @colorScheme" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        
+        @foreach (var item in NavigationItems)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="@item.Href" Match="item.Match">
+                    <span class="bi" aria-hidden="true"></span> @item.Text
+                </NavLink>
+            </div>
+        }
     </nav>
 </div>
 
-
 @code {
-    //todo: put here previous edition
-    //todo: meni is gona be same like monitor and mobile versiona -> DNT repeat yourself!
-//todo: this need to fetch from database which conference is available, and move this to MainLayout/Apprazor
-private string colorScheme = "goteborg";
-
-
+    private List<(string Href, string Text, string Target, NavLinkMatch Match)> NavigationItems = new()
+    {
+        ("#sponsor", "Sponsor", "#sponsor", NavLinkMatch.All),
+        ("/about", "About Us", "_self", NavLinkMatch.Prefix),
+        ("/contact", "Contact", "_self", NavLinkMatch.Prefix)
+    };
+    
+    private string colorScheme;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = new Uri(NavigationManager.Uri);
+        var segments = uri.Segments;
+        if (segments.Length >= 3)
+        {
+            string city = segments[1].TrimEnd('/');
+            if (int.TryParse(segments[2].TrimEnd('/'), out int year))
+            {
+                var conferenceEdition = await ConferenceManager.GetConferenceEditionAsync(city, year);
+                colorScheme = conferenceEdition?.City.ToString().ToLower() ?? "default";
+            }
+        }
+    }
 }
